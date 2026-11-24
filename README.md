@@ -26,7 +26,7 @@ WHO 2020 신체활동 가이드라인으로 지난 7일 운동량을 진단하�
 | 폴더 | 내용 |
 | --- | --- |
 | `frontend/` | Next.js |
-| `backend/` | Spring Boot (예정) |
+| `backend/` | Spring Boot |
 | `design/` | 디자인 토큰, 와이어프레임 |
 | `docs/` | 기획서 |
 
@@ -46,6 +46,22 @@ npm run dev
 | `npm run typecheck` | 타입 검사 |
 | `npm run test:run` | 단위 테스트 1회 실행 |
 | `npm run build` | 배포용 빌드 |
+
+## 백엔드 실행
+
+Java 25가 필요합니다. `JAVA_HOME`이 JDK 25를 가리켜야 합니다.
+
+```bash
+cd backend
+./gradlew bootRun
+```
+
+| 명령 | 하는 일 |
+| --- | --- |
+| `./gradlew test` | 단위 테스트 |
+| `./gradlew build` | 테스트 + 배포용 jar 생성 |
+
+헬스 체크: `GET /actuator/health`
 
 ## 문서
 
