@@ -3,7 +3,8 @@ language: ko-KR
 
 reviews:
   profile: chill
-  high_level_summary: true
+  # PR 본문이 main 커밋 메시지가 되므로 본문에 요약을 붙이지 않는다.
+  high_level_summary: false
   poem: false
   auto_review:
     enabled: true
