@@ -30,9 +30,54 @@ WHO 2020 신체활동 가이드라인으로 지난 7일 운동량을 진단하�
 | `design/` | 디자인 토큰, 와이어프레임 |
 | `docs/` | 기획서 |
 
-## 프론트엔드 실행
+## 로컬 실행 방법
 
-Node.js 26이 필요합니다.
+필요한 것: Node.js 26, Java 25(`JAVA_HOME`이 JDK 25를 가리켜야 합니다), [Docker Desktop](https://docs.docker.com/desktop/).
+
+### 1. 접속 정보 파일 만들기
+
+레포 루트에서 한 번만 실행합니다. `.env`는 Git에 올라가지 않습니다.
+
+```bash
+cp .env.example .env
+```
+
+8080 포트를 다른 프로그램이 쓰고 있으면 `.env`의 `BACKEND_PORT`를 바꿉니다.
+
+### 2. DB 켜기
+
+Docker Desktop을 켠 뒤 레포 루트에서 실행합니다.
+
+```bash
+docker compose up -d --wait
+```
+
+| 명령 | 하는 일 |
+| --- | --- |
+| `docker compose ps` | 상태 보기 |
+| `docker compose stop` | 끄기 (데이터 유지) |
+| `docker compose down` | 컨테이너 삭제 (데이터 유지) |
+| `docker compose down -v` | 컨테이너와 **데이터까지 삭제** |
+
+`.env`의 DB 이름·사용자·비밀번호는 DB를 처음 만들 때만 적용됩니다. 나중에 바꾸려면 데이터를 삭제하고 다시 켜야 합니다.
+
+DBeaver 같은 도구로 접속할 때는 호스트 `localhost`와 `.env`의 값을 씁니다.
+
+### 3. 백엔드
+
+```bash
+cd backend
+./gradlew bootRun --args='--spring.profiles.active=local'
+```
+
+| 명령 | 하는 일 |
+| --- | --- |
+| `./gradlew test` | 테스트 (Docker가 켜져 있어야 합니다. 로컬 DB와 별도의 테스트용 DB를 씁니다) |
+| `./gradlew build` | 테스트 + 배포용 jar 생성 |
+
+헬스 체크: `GET /actuator/health`
+
+### 4. 프론트엔드
 
 ```bash
 cd frontend
@@ -46,22 +91,6 @@ npm run dev
 | `npm run typecheck` | 타입 검사 |
 | `npm run test:run` | 단위 테스트 1회 실행 |
 | `npm run build` | 배포용 빌드 |
-
-## 백엔드 실행
-
-Java 25가 필요합니다. `JAVA_HOME`이 JDK 25를 가리켜야 합니다.
-
-```bash
-cd backend
-./gradlew bootRun
-```
-
-| 명령 | 하는 일 |
-| --- | --- |
-| `./gradlew test` | 단위 테스트 |
-| `./gradlew build` | 테스트 + 배포용 jar 생성 |
-
-헬스 체크: `GET /actuator/health`
 
 ## 문서
 
