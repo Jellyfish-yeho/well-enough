@@ -25,10 +25,27 @@ WHO 2020 신체활동 가이드라인으로 지난 7일 운동량을 진단하�
 
 | 폴더 | 내용 |
 | --- | --- |
-| `frontend/` | Next.js (예정) |
+| `frontend/` | Next.js |
 | `backend/` | Spring Boot (예정) |
 | `design/` | 디자인 토큰, 와이어프레임 |
 | `docs/` | 기획서 |
+
+## 프론트엔드 실행
+
+Node.js 26이 필요합니다.
+
+```bash
+cd frontend
+npm ci
+npm run dev
+```
+
+| 명령 | 하는 일 |
+| --- | --- |
+| `npm run lint` | 코드 규칙 검사 |
+| `npm run typecheck` | 타입 검사 |
+| `npm run test:run` | 단위 테스트 1회 실행 |
+| `npm run build` | 배포용 빌드 |
 
 ## 문서
 
