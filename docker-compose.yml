@@ -1,0 +1,25 @@
+# 로컬 개발용 DB. 운영 DB는 Railway에 따로 있다.
+name: well-enough
+
+services:
+  db:
+    # 메이저 버전은 운영 DB, 테스트(TestcontainersConfiguration)와 같게 유지한다.
+    image: postgres:18
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?.env 파일이 필요합니다. .env.example을 복사하세요}
+      POSTGRES_USER: ${POSTGRES_USER:?.env 파일이 필요합니다. .env.example을 복사하세요}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?.env 파일이 필요합니다. .env.example을 복사하세요}
+    ports:
+      # 127.0.0.1: 이 컴퓨터에서만 접속할 수 있다.
+      - "127.0.0.1:${POSTGRES_PORT:?.env 파일이 필요합니다. .env.example을 복사하세요}:5432"
+    volumes:
+      # PostgreSQL 18 이미지부터 경로가 /var/lib/postgresql이다. (17까지는 /var/lib/postgresql/data)
+      - db-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  db-data:

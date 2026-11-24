@@ -1,0 +1,11 @@
+# 내 컴퓨터에서 실행할 때만 쓰는 설정. 접속 정보는 레포 루트의 .env에서 읽는다.
+# .env가 없으면 시작하지 않는다. 경로는 backend/ 폴더에서 실행하는 것을 기준으로 한다.
+spring:
+  config:
+    import: file:../.env[.properties]
+  datasource:
+    url: jdbc:postgresql://localhost:${POSTGRES_PORT}/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+server:
+  port: ${BACKEND_PORT}
