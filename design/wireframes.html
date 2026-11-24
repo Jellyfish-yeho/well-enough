@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Well Enough Wireframes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #e9e9e9; font-family: 'Noto Sans KR', sans-serif; line-height: 1.2; color: #1f1f1f; padding: 40px; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-start; }
+  .screen { width: 375px; flex-shrink: 0; min-height: 812px; background: #ffffff; display: flex; flex-direction: column; border: 1px solid #c8c8c8; }
+  .note { background: #fff4c2; color: #6b5300; font-size: 12px; padding: 6px 16px; border-bottom: 1px solid #ecd98a; }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid #e2e2e2; }
+  .logo { font-weight: 700; font-size: 16px; }
+  .ctrls { display: flex; gap: 8px; align-items: center; }
+  .seg { display: flex; border: 1px solid #9a9a9a; border-radius: 6px; overflow: hidden; font-size: 12px; }
+  .seg span { padding: 4px 8px; }
+  .seg .on { background: #3a3a3a; color: #fff; }
+  .iconbtn { border: 1px solid #9a9a9a; border-radius: 6px; font-size: 12px; padding: 4px 8px; }
+  .body { padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; flex: 1; }
+  h1 { font-size: 28px; line-height: 1.3; font-weight: 700; }
+  h2 { font-size: 20px; line-height: 1.4; font-weight: 700; }
+  h3 { font-size: 15px; font-weight: 700; }
+  p, li { font-size: 14px; line-height: 1.6; }
+  .muted { color: #6a6a6a; font-size: 13px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { border: 1px solid #b5b5b5; border-radius: 999px; padding: 6px 12px; font-size: 13px; }
+  .chip.sel { background: #3a3a3a; color: #fff; border-color: #3a3a3a; }
+  .btn { display: block; text-align: center; border-radius: 10px; padding: 15px; font-size: 16px; font-weight: 700; }
+  .btn.primary { background: #3a3a3a; color: #fff; }
+  .btn.secondary { border: 1px solid #3a3a3a; color: #3a3a3a; }
+  .link { font-size: 14px; text-decoration: underline; color: #3a3a3a; }
+  .box { border: 1px solid #d0d0d0; border-radius: 10px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }
+  .box.fill { background: #f3f3f3; border-color: #f3f3f3; }
+  .progress { display: flex; flex-direction: column; gap: 6px; }
+  .bar { height: 6px; background: #e2e2e2; border-radius: 3px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: #3a3a3a; }
+  .days { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .day { border: 1px solid #9a9a9a; border-radius: 10px; height: 56px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; }
+  .day.sel { background: #3a3a3a; color: #fff; border-color: #3a3a3a; }
+  .inputs { display: flex; gap: 12px; align-items: center; }
+  .field { flex: 1; border: 1px solid #9a9a9a; border-radius: 10px; height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; font-size: 16px; }
+  .navrow { display: flex; gap: 12px; padding: 16px 20px 24px; border-top: 1px solid #e2e2e2; }
+  .navrow .btn { flex: 1; }
+  .row { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid #e6e6e6; }
+  .row:last-child { border-bottom: none; }
+  .row .k { font-size: 14px; font-weight: 700; }
+  .row .v { font-size: 13px; color: #555; }
+  .edit { font-size: 13px; border: 1px solid #9a9a9a; border-radius: 6px; padding: 4px 10px; flex-shrink: 0; }
+  .verdict { display: flex; align-items: center; gap: 12px; }
+  .badge { width: 44px; height: 44px; border-radius: 22px; border: 2px solid #3a3a3a; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; flex-shrink: 0; }
+  .gauge { position: relative; height: 18px; background: #e2e2e2; border-radius: 9px; }
+  .gauge i { position: absolute; left: 0; top: 0; bottom: 0; background: #3a3a3a; border-radius: 9px; }
+  .ticks { display: flex; justify-content: space-between; font-size: 12px; color: #6a6a6a; }
+  .dist { display: flex; align-items: flex-end; gap: 4px; height: 56px; }
+  .dist span { flex: 1; background: #cfcfcf; }
+  .dist span.me { background: #3a3a3a; }
+  .week { display: flex; flex-direction: column; }
+  .wd { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #e6e6e6; }
+  .wd b { width: 28px; font-size: 14px; }
+  .wd .t { flex: 1; font-size: 14px; }
+  .wd .m { font-size: 13px; color: #555; }
+  .toggle { width: 44px; height: 26px; border-radius: 13px; background: #cfcfcf; position: relative; flex-shrink: 0; }
+  .toggle i { position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; border-radius: 10px; background: #fff; }
+  .trend { display: flex; align-items: flex-end; gap: 14px; height: 90px; padding-top: 8px; }
+  .trend div { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; color: #6a6a6a; }
+  .trend span { width: 100%; background: #9a9a9a; border-radius: 4px 4px 0 0; }
+  .sec { display: flex; flex-direction: column; gap: 6px; padding-bottom: 14px; border-bottom: 1px solid #e6e6e6; }
+  .sec:last-child { border-bottom: none; }
+  ul { padding-left: 18px; }
+  .tabs { display: flex; height: 67px; padding-bottom: 8px; border-top: 1px solid #e2e2e2; }
+  .tab { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding-top: 8px; font-size: 12px; line-height: 14px; color: #8c8c8c; }
+  .tab.on { color: #3a3a3a; font-weight: 700; }
+  .foot { font-size: 12px; color: #6a6a6a; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- 1 랜딩 -->
+<section class="screen" data-name="1 랜딩">
+  <div class="note">1 랜딩 · 로그인 불필요</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <div style="height:24px"></div>
+    <h1>충분히<br>강녕한가요?</h1>
+    <p>지난 7일 운동량이 WHO 권장 기준을 채웠는지 1분 만에 확인해요.</p>
+    <div class="chips"><span class="chip">약 1분</span><span class="chip">8문항</span><span class="chip">로그인 없이</span></div>
+    <div style="flex:1"></div>
+    <span class="btn primary">진단 시작</span>
+    <span class="link" style="text-align:center">계산 근거 보기 (WHO 2020, IPAQ)</span>
+    <p class="foot">의료 조언이 아닙니다.</p>
+  </div>
+</section>
+
+<!-- 2 설문: 일수 -->
+<section class="screen" data-name="2 설문 - 일수">
+  <div class="note">2 설문 (단계형) · 일수 문항 · 0일이면 3번 문항으로 자동 이동</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <div class="progress"><span class="muted">1 / 8</span><div class="bar"><i style="width:12.5%"></i></div></div>
+    <div class="box fill">
+      <p class="muted">격렬한 신체활동: 평소보다 숨이 훨씬 더 차게 만드는 활동</p>
+      <p class="muted">한 번에 10분 이상 지속한 활동만 생각해 주세요.</p>
+    </div>
+    <h2>지난 7일간 무거운 물건 나르기, 달리기, 에어로빅, 빠른 속도로 자전거 타기 등과 같은 격렬한 신체 활동을 며칠간 하였습니까?</h2>
+    <div class="days">
+      <span class="day">0일</span><span class="day sel">1일</span><span class="day">2일</span><span class="day">3일</span>
+      <span class="day">4일</span><span class="day">5일</span><span class="day">6일</span><span class="day">7일</span>
+    </div>
+  </div>
+  <div class="navrow"><span class="btn secondary">이전</span><span class="btn primary">다음</span></div>
+</section>
+
+<!-- 2 설문: 시간 -->
+<section class="screen" data-name="2 설문 - 시간">
+  <div class="note">2 설문 (단계형) · 시간 문항 · 입력값 임시 저장</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <div class="progress"><span class="muted">2 / 8</span><div class="bar"><i style="width:25%"></i></div></div>
+    <h2>그런 날 중 하루에 격렬한 신체활동을 하면서 보낸 시간이 보통 얼마나 됩니까?</h2>
+    <p class="muted">자주 쓰는 값</p>
+    <div class="chips"><span class="chip">10분</span><span class="chip">20분</span><span class="chip sel">30분</span><span class="chip">45분</span><span class="chip">1시간</span><span class="chip">1시간 30분</span></div>
+    <p class="muted">직접 입력</p>
+    <div class="inputs"><div class="field"><span>0</span><span class="muted">시간</span></div><div class="field"><span>30</span><span class="muted">분</span></div></div>
+    <span class="link">잘 모르겠어요</span>
+  </div>
+  <div class="navrow"><span class="btn secondary">이전</span><span class="btn primary">다음</span></div>
+</section>
+
+<!-- 2 재진단 요약 -->
+<section class="screen" data-name="2 재진단 요약">
+  <div class="note">2 설문 · 기록 갱신(재진단) 요약 · 로그인 사용자 · 바뀐 문항만 수정</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <div class="box fill">
+      <p><b>지난번 답이에요. 최근 7일과 다르면 고쳐 주세요.</b></p>
+      <p class="muted">지난 진단: 10월 27일</p>
+    </div>
+    <div class="box" style="gap:0">
+      <div class="row"><div><p class="k">격렬한 활동</p><p class="v">1일, 하루 30분</p></div><span class="edit">수정</span></div>
+      <div class="row"><div><p class="k">중간정도 활동</p><p class="v">2일, 하루 25분</p></div><span class="edit">수정</span></div>
+      <div class="row"><div><p class="k">걷기</p><p class="v">5일, 하루 30분</p></div><span class="edit">수정</span></div>
+      <div class="row"><div><p class="k">주중 앉아 있던 시간</p><p class="v">하루 8시간</p></div><span class="edit">수정</span></div>
+      <div class="row"><div><p class="k">근력운동</p><p class="v">1일</p></div><span class="edit">수정</span></div>
+    </div>
+    <p class="muted">8문항을 활동별로 묶어 보여줘요. 수정을 누르면 해당 문항으로 이동해요.</p>
+  </div>
+  <div class="navrow"><span class="btn primary">이대로 갱신하기</span></div>
+</section>
+
+<!-- 3 결과 -->
+<section class="screen" data-name="3 결과">
+  <div class="note">3 결과 · 예시 값 · 저장 시 로그인</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <div class="verdict"><span class="badge">!</span><div><h2>기준까지 40분 부족해요</h2><p class="muted">유산소 미달</p></div></div>
+    <div class="box">
+      <p><b>환산 시간 110분</b> / 기준 150분</p>
+      <div class="gauge"><i style="width:36.7%"></i></div>
+      <div class="ticks"><span>0</span><span>150분 (기준)</span><span>300분 (충분 이상)</span></div>
+      <p class="muted">중간정도 50분 + 격렬한 30분 × 2</p>
+    </div>
+    <div class="box"><p><b>근력운동 1일</b> / 기준 주 2일 (미달)</p></div>
+    <div class="box fill"><p class="muted">참고 (판정 없음): 걷기 주 150분, 주중 앉아 있던 시간 하루 8시간</p></div>
+    <div class="box">
+      <h3>다른 사용자와 비교</h3>
+      <div class="dist"><span style="height:30%"></span><span style="height:55%"></span><span class="me" style="height:80%"></span><span style="height:100%"></span><span style="height:75%"></span><span style="height:45%"></span><span style="height:25%"></span></div>
+      <p>하위 38%</p>
+      <p class="muted">이 서비스 사용자 412명 기준, 오차 ±5%p</p>
+    </div>
+    <span class="btn primary">저장하고 주간 플랜 받기 (Google 로그인)</span>
+    <span class="btn secondary">결과 공유하기</span>
+    <p class="foot">의료 조언이 아닙니다. 근거: WHO 2020, IPAQ</p>
+  </div>
+</section>
+
+<!-- 4 주간 플랜 -->
+<section class="screen" data-name="4 주간 플랜">
+  <div class="note">4 주간 플랜 · 로그인 필요 · 하단 탭 · 분배 규칙: PRD v0.7 A</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <h2>앞으로 7일 플랜</h2>
+    <div class="box">
+      <p><b>최근 7일 110분</b> / 목표 150분</p>
+      <div class="gauge"><i style="width:73.3%"></i></div>
+      <p class="muted">마지막 갱신: 11월 3일. 지금 하던 운동에 더할 양이에요. 격렬한 운동이면 절반 시간이면 돼요.</p>
+    </div>
+    <div class="week">
+      <div class="wd"><b>수</b><span class="t">유산소 (중간정도)</span><span class="m">15분</span></div>
+      <div class="wd"><b>목</b><span class="t">휴식</span><span class="m">-</span></div>
+      <div class="wd"><b>금</b><span class="t">유산소 (중간정도)</span><span class="m">15분</span></div>
+      <div class="wd"><b>토</b><span class="t">근력운동</span><span class="m">주요 근육</span></div>
+      <div class="wd"><b>일</b><span class="t">유산소 (중간정도)</span><span class="m">10분</span></div>
+      <div class="wd"><b>월</b><span class="t">휴식</span><span class="m">-</span></div>
+      <div class="wd"><b>화</b><span class="t">휴식</span><span class="m">-</span></div>
+    </div>
+    <span class="btn primary">기록 갱신하기</span>
+  </div>
+  <div class="tabs">
+    <span class="tab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a3a3a" stroke-width="2" aria-hidden="true"><path d="M7 4H17C18.1046 4 19 4.89543 19 6V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V6C5 4.89543 5.89543 4 7 4Z"/><path d="M9 9H15M9 13H15M9 17H13" stroke-linecap="round"/></svg><span>진단</span></span>
+    <span class="tab on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a3a3a" stroke-width="2" aria-hidden="true"><path d="M6 5H18C19.1046 5 20 5.89543 20 7V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V7C4 5.89543 4.89543 5 6 5Z"/><path d="M4 10H20M9 3V7M15 3V7" stroke-linecap="round"/></svg><span>플랜</span></span>
+    <span class="tab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a3a3a" stroke-width="2" aria-hidden="true"><path d="M16 8C16 10.2091 14.2091 12 12 12C9.79086 12 8 10.2091 8 8C8 5.79086 9.79086 4 12 4C14.2091 4 16 5.79086 16 8Z"/><path d="M4 20C5.5 16 8.5 14 12 14C15.5 14 18.5 16 20 20" stroke-linecap="round"/></svg><span>마이</span></span>
+  </div>
+</section>
+
+<!-- 5 마이 -->
+<section class="screen" data-name="5 마이">
+  <div class="note">5 마이 · 로그인 필요 · 새 주 첫 방문 시 리포트 카드 노출</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <div class="box">
+      <h3>지난주 리포트 (10/27 – 11/2)</h3>
+      <p>환산 시간 110분 (미달)</p>
+      <p>플랜 달성률 73%</p>
+      <span class="link">이번 주 플랜 보기</span>
+    </div>
+    <div class="box">
+      <h3>주차별 환산 시간</h3>
+      <div class="trend">
+        <div><span style="height:40px"></span>10/6</div>
+        <div><span style="height:52px"></span>10/13</div>
+        <div><span style="height:47px"></span>10/20</div>
+        <div><span style="height:60px; background:#3a3a3a"></span>10/27</div>
+      </div>
+      <p class="muted">점선 기준: 150분</p>
+    </div>
+    <div class="box" style="gap:0">
+      <div class="row"><div><p class="k">주간 리포트 이메일 받기</p><p class="v">매주 월요일 발송, 기본값 꺼짐</p></div><span class="toggle"><i></i></span></div>
+      <div class="row"><p class="k">로그아웃</p></div>
+      <div class="row"><p class="k">계정 삭제</p></div>
+    </div>
+  </div>
+  <div class="tabs">
+    <span class="tab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a3a3a" stroke-width="2" aria-hidden="true"><path d="M7 4H17C18.1046 4 19 4.89543 19 6V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V6C5 4.89543 5.89543 4 7 4Z"/><path d="M9 9H15M9 13H15M9 17H13" stroke-linecap="round"/></svg><span>진단</span></span>
+    <span class="tab"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a3a3a" stroke-width="2" aria-hidden="true"><path d="M6 5H18C19.1046 5 20 5.89543 20 7V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V7C4 5.89543 4.89543 5 6 5Z"/><path d="M4 10H20M9 3V7M15 3V7" stroke-linecap="round"/></svg><span>플랜</span></span>
+    <span class="tab on"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3a3a3a" stroke-width="2" aria-hidden="true"><path d="M16 8C16 10.2091 14.2091 12 12 12C9.79086 12 8 10.2091 8 8C8 5.79086 9.79086 4 12 4C14.2091 4 16 5.79086 16 8Z"/><path d="M4 20C5.5 16 8.5 14 12 14C15.5 14 18.5 16 20 20" stroke-linecap="round"/></svg><span>마이</span></span>
+  </div>
+</section>
+
+<!-- 6 근거·개인정보 안내 -->
+<section class="screen" data-name="6 근거·개인정보 안내">
+  <div class="note">6 근거·개인정보 안내 · 로그인 불필요</div>
+  <div class="top"><span class="logo">Well Enough</span><div class="ctrls"><div class="seg"><span class="on">KO</span><span>EN</span></div><span class="iconbtn">◐ 라이트</span></div></div>
+  <div class="body">
+    <h2>계산 근거와 개인정보</h2>
+    <div class="sec"><h3>판정 기준</h3><p>WHO 2020 신체활동 가이드라인 (성인 18–64세)</p><p class="muted">주당 중간정도 150–300분 또는 격렬한 75–150분, 근력운동 주 2일 이상</p></div>
+    <div class="sec"><h3>설문</h3><p>국제 신체활동 설문(IPAQ) 단축형, CC BY 4.0</p></div>
+    <div class="sec"><h3>계산 방식</h3><p>환산 시간 = 중간정도 분 + 격렬한 분 × 2</p></div>
+    <div class="sec"><h3>수집 항목</h3><ul><li>설문 응답</li><li>브라우저 익명 ID</li><li>(로그인 시) Google 계정 정보</li></ul></div>
+    <div class="sec"><h3>사용하는 외부 서비스</h3><ul><li>Google Analytics 4 (이용 통계)</li><li>Cloudflare Turnstile (자동 제출 방지)</li></ul></div>
+    <div class="sec"><h3>계정 삭제</h3><p>마이 → 계정 삭제. 진단 기록도 함께 삭제돼요.</p></div>
+  </div>
+</section>
+
+</body>
+</html>

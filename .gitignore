@@ -1,0 +1,43 @@
+# 비밀값
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Playwright
+playwright-report/
+test-results/
+
+# Java / Gradle
+.gradle/
+build/
+!**/src/**/build/
+*.class
+hs_err_pid*
+
+# 배포 도구
+.vercel/
+
+# 편집기·운영체제
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+*.log
+
+# Claude Code 개인 설정
+.claude/settings.local.json
+.claude/worktrees/
+
+# 개인 작업 메모 (공개하지 않음)
+/CLAUDE.md
